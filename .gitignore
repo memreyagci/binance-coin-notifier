@@ -1,0 +1,5 @@
+venv/
+chromedriver
+__pycache__
+geckodriver.log
+run.sh
