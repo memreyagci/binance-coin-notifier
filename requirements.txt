@@ -21,6 +21,7 @@ importlib-metadata==4.8.2
 lxml==4.6.4
 outcome==1.1.0
 parse==1.19.0
+psycopg2==2.9.2
 pycparser==2.21
 pyee==8.2.2
 pyOpenSSL==21.0.0
