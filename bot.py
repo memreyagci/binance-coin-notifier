@@ -9,14 +9,16 @@ from database import add_user, remove_user, check_if_user_exists, get_users, ini
 
 import texts
 import announcement
+
 API = os.environ.get("BINANCE_TELEGRAM_BOT_API")
 
 KEYWORDS = [
-        "RNDR",
-        "RACA",
-        "Radio",
-        "Caca"
-        ]
+    "RNDR",
+    "RACA",
+    "Radio",
+    "Caca"
+]
+
 
 def add_handlers():
     # The commands used in Telegram that starts with '/'. eg. /subscribe
@@ -24,6 +26,7 @@ def add_handlers():
     dispatcher.add_handler(CommandHandler("subscribe", subscribe))
     dispatcher.add_handler(CommandHandler("unsubscribe", unsubscribe))
     dispatcher.add_handler(CommandHandler("test", start_test_notification))
+
 
 def start(update, context):
     tid = update.effective_user.id
@@ -40,10 +43,11 @@ def start(update, context):
     except telegram.error.Unauthorized:
         remove_user(tid)
 
+
 def subscribe(update, context):
     tid = update.effective_user.id
 
-    if check_if_user_exists(tid) == False:
+    if not check_if_user_exists(tid):
         add_user(tid)
         context.bot.send_message(
             chat_id=tid,
@@ -55,10 +59,11 @@ def subscribe(update, context):
             text="You are already subscribed!",
         )
 
+
 def unsubscribe(update, context):
     tid = update.effective_user.id
 
-    if check_if_user_exists(tid) == True:
+    if check_if_user_exists(tid):
         remove_user(tid)
         context.bot.send_message(
             chat_id=tid,
@@ -70,18 +75,20 @@ def unsubscribe(update, context):
             text="You are not subscribed.",
         )
 
+
 def start_test_notification(update, context):
     context.bot.send_message(
-            chat_id=update.effective_user.id,
-            text=texts.pretest(),
-            )
+        chat_id=update.effective_user.id,
+        text=texts.pretest(),
+    )
     sleep(10)
     for _ in range(20):
         context.bot.send_message(
-                chat_id=update.effective_user.id,
-                text="Test!",
-                )
+            chat_id=update.effective_user.id,
+            text="Test!",
+        )
         sleep(1.5)
+
 
 def update_job(context):
     driver = announcement.get_driver()
@@ -90,17 +97,18 @@ def update_job(context):
 
     for a in announcements:
         found = announcement.check_keywords(a["title"], a["article"], KEYWORDS)
-        if found == True:
+        if found:
             for _ in range(50):
                 for user in users:
-                    if check_if_user_exists(user[0]) == True:
+                    if check_if_user_exists(user[0]):
                         context.bot.send_message(
-                                chat_id=user[0],
-                                text=texts.notification(a["link"]),
-                                )
+                            chat_id=user[0],
+                            text=texts.notification(a["link"]),
+                        )
                     else:
                         break
-                sleep(1.5)     
+                sleep(1.5)
+
 
 if __name__ == "__main__":
     logging.basicConfig(
