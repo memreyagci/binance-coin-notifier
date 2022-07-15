@@ -10,8 +10,6 @@ import configs
 import texts
 import announcement
 
-API = configs.bot_api
-
 KEYWORDS = configs.coin_keywords
 
 
@@ -113,7 +111,7 @@ if __name__ == "__main__":
 
     init_db()
 
-    updater = Updater(token=API)
+    updater = Updater(token=configs.bot_api)
     dispatcher = updater.dispatcher
 
     add_handlers()
