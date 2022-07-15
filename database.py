@@ -4,8 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 import configs
 
-API = configs.db_url
-engine = create_engine(API)
+engine = create_engine(configs.db_url)
 session = sessionmaker(bind=engine)()
 base = declarative_base()
 
