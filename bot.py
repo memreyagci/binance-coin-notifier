@@ -1,23 +1,18 @@
 import logging
-import os
 from time import sleep
 
 import telegram
 from telegram.ext import CommandHandler, Updater
 
 from database import add_user, remove_user, check_if_user_exists, get_users, init_db
+import configs
 
 import texts
 import announcement
 
-API = os.environ.get("BINANCE_TELEGRAM_BOT_API")
+API = configs.bot_api
 
-KEYWORDS = [
-    "RNDR",
-    "RACA",
-    "Radio",
-    "Caca"
-]
+KEYWORDS = configs.coin_keywords
 
 
 def add_handlers():

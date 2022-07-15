@@ -2,9 +2,9 @@ from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-import os
+import configs
 
-API = os.environ.get("BINANCE_TELEGRAM_BOT_DB_URL")
+API = configs.db_url
 engine = create_engine(API)
 session = sessionmaker(bind=engine)()
 base = declarative_base()
