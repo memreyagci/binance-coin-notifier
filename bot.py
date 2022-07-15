@@ -9,7 +9,7 @@ from database import add_user, remove_user, check_if_user_exists, get_users, ini
 
 import texts
 import announcement
-API = os.environ.get("RACA_BOT_API")
+API = os.environ.get("BINANCE_TELEGRAM_BOT_API")
 
 KEYWORDS = [
         "RNDR",

@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 import os
 
-API = os.environ.get("DATABASE_URL")
+API = os.environ.get("BINANCE_TELEGRAM_BOT_DB_URL")
 engine = create_engine(API)
 session = sessionmaker(bind=engine)()
 base = declarative_base()
